@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="//code.iconify.design/1/1.0.6/iconify.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      
+      <div class="buttons">
+
+        <dialog id="favDialog" class="favDialog">
+          <form>
+            <p>
+              <label>
+                Favorite animal:
+                <select>
+                  <option value="default">Choose…</option>
+                  <option>Brine shrimp</option>
+                  <option>Red panda</option>
+                  <option>Spider monkey</option>
+                </select>
+              </label>
+            </p>
+            <div>
+              <button value="cancel" formmethod="dialog">Cancel</button>
+              <button id="confirmBtn" value="default">Confirm</button>
+            </div>
+          </form>
+        </dialog>
+
+        <div id="myModal" class="modal">
+
+          <!-- Modal content -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <span class="close">&times;</span>
+              <h2>Modal Header</h2>
+            </div>
+            <div class="modal-body">
+
+              <form method="dialog" id="book-form">
+                <fieldset>
+                  <p>Book Title</p>
+                  <input id="title" type="text" placeholder="Book Title" required>
+
+                  <p>Book Author</p>
+                  <input id="author" type="text" placeholder="Book Author">
+
+                  <p>Number of Pages</p>
+                  <input id="pages" type="number" placeholder="Number of pages">
+
+                  <p>Already Read</p>
+                  <input id="read" type="checkbox">
+                  
+                </fieldset>
+                <button type="submit" onclick="addBookToLibrary()">Add Book</button>
+              </form>
+              
+            </div>
+            <div class="modal-footer">
+              <h3>Modal Footer</h3>
+            </div>
+          </div>
+        
+        </div>
+
+        <button onclick="newBookFunction()">New Book</button>
+
+      </div>
+
+      <div id="table-container"></div>
+      
+    </div>
+
+    <div class="footer">
+      <p>Copyright © Yobel Octavinus 2023</p>
+    </div>
+
+    <script src="scripts.js"></script>
+  </body>
+</html>
