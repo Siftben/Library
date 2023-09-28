@@ -62,6 +62,11 @@ function createTableFromObjects(data) {
     headerCell.textContent = key;
     headerRow.appendChild(headerCell);
   }
+
+  const headerCell = document.createElement('th');
+  headerCell.textContent = "Edit";
+  headerRow.appendChild(headerCell);
+
   table.appendChild(headerRow);
 
   // Create table data rows
@@ -78,7 +83,6 @@ function createTableFromObjects(data) {
         checkboxCell.setAttribute('type', 'checkbox');
         checkboxCell.setAttribute('class', 'tableCheckbox');
         
-        console.log(obj.read);
         if(obj.read === true){
           checkboxCell.setAttribute('checked', 'yes');
         }
@@ -91,7 +95,15 @@ function createTableFromObjects(data) {
       keyLoop++;
       
     }
+
+    const dataCell = document.createElement('td');
+    const buttonCell = document.createElement('button');
+    dataRow.appendChild(dataCell);
+    dataCell.appendChild(buttonCell);
+    buttonCell.textContent = 'Edit';
+    
     table.appendChild(dataRow);
+    
   }
 
   return table;
