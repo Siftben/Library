@@ -26,12 +26,13 @@ function addBookToLibrary() {
   let inputTitle = document.getElementById("title").value;
   let inputAuthor = document.getElementById("author").value;
   let inputPages = document.getElementById("pages").value;
+  let inputRead = document.getElementById("read").checked;
 
   if(inputTitle === ""){
     return;
   }
 
-  myLibrary.push(new Book(inputTitle, inputAuthor, inputPages , false));
+  myLibrary.push(new Book(inputTitle, inputAuthor, inputPages , inputRead));
   console.log("Add book");
   refreshTable();
 }
@@ -66,10 +67,29 @@ function createTableFromObjects(data) {
   // Create table data rows
   for (const obj of data) {
     const dataRow = document.createElement('tr');
+    let keyLoop = 0;
     for (const key of keys) {
       const dataCell = document.createElement('td');
-      dataCell.textContent = obj[key];
-      dataRow.appendChild(dataCell);
+      
+      if(keyLoop === keys.length - 1){
+        const checkboxCell = document.createElement('input');
+        dataRow.appendChild(dataCell);
+        dataCell.appendChild(checkboxCell);
+        checkboxCell.setAttribute('type', 'checkbox');
+        checkboxCell.setAttribute('class', 'tableCheckbox');
+        
+        console.log(obj.read);
+        if(obj.read === true){
+          checkboxCell.setAttribute('checked', 'yes');
+        }
+
+      }else{
+        dataCell.textContent = obj[key];
+        dataRow.appendChild(dataCell);
+      }
+
+      keyLoop++;
+      
     }
     table.appendChild(dataRow);
   }
