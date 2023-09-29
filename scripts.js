@@ -12,6 +12,7 @@ var span = document.getElementsByClassName("close")[0];
 
 function Book(title, author, pages, read) {
   // the constructor...
+  this.id = myLibrary.length;
   this.title = title;
   this.author = author;
   this.pages = pages;
@@ -41,12 +42,34 @@ function newBookFunction() {
     modal.style.display = "block";
 }
 
+function editBookFunction(button) {
+  console.log("Edit Book " + button.parentNode.parentNode.id);
+
+  refreshTable();
+}
+
+function deleteBookFunction(button) {
+  console.log("Delete Book " + button.parentNode.parentNode.id);
+
+  let deleted = myLibrary[button.parentNode.parentNode.id];
+
+  myLibrary.splice(button.parentNode.parentNode.id, 1);
+ 
+  console.log("Removed: " + deleted);
+  console.log("Remaining elements: " + myLibrary);
+
+  refreshTable();
+}
+
 function refreshTable() {
-  const table = createTableFromObjects(myLibrary);
   const tableContainer = document.getElementById('table-container');
 
   if(tableContainer.hasChildNodes())
     tableContainer.removeChild(tableContainer.firstElementChild);
+
+  if(myLibrary.length === 0) return;
+
+  const table = createTableFromObjects(myLibrary);  
   
   tableContainer.appendChild(table);
 }
@@ -54,6 +77,7 @@ function refreshTable() {
 function createTableFromObjects(data) {
   const table = document.createElement('table');
   const headerRow = document.createElement('tr');
+  let bookId = 0;
   
   // Create table header row
   const keys = Object.keys(data[0]);
@@ -66,6 +90,10 @@ function createTableFromObjects(data) {
   const headerCell = document.createElement('th');
   headerCell.textContent = "Edit";
   headerRow.appendChild(headerCell);
+
+  const deleteCell = document.createElement('th');
+  deleteCell.textContent = "Delete";
+  headerRow.appendChild(deleteCell);
 
   table.appendChild(headerRow);
 
@@ -101,9 +129,22 @@ function createTableFromObjects(data) {
     dataRow.appendChild(dataCell);
     dataCell.appendChild(buttonCell);
     buttonCell.textContent = 'Edit';
+    buttonCell.setAttribute('class', 'editButton');
+    buttonCell.setAttribute('onClick', 'editBookFunction(this)');
+
+    const dataDeleteCell = document.createElement('td');
+    const deleteCell = document.createElement('button');
+    dataRow.appendChild(dataDeleteCell);
+    dataDeleteCell.appendChild(deleteCell);
+    deleteCell.textContent = 'Delete';
+    deleteCell.setAttribute('class', 'deleteButton');
+    deleteCell.setAttribute('onClick', 'deleteBookFunction(this)');
     
     table.appendChild(dataRow);
     
+    dataRow.setAttribute('id', bookId);
+    bookId++;
+
   }
 
   return table;
